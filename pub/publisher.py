@@ -2,10 +2,13 @@ import paho.mqtt.client as mqtt
 import json
 import time
 import random
+import os 
+
+broker = os.getenv("BROKER")
 
 
-mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, "lksadhouivhlefhiuvuk7388490fshsdlfviop", clean_session=False)
-mqttc.connect("broker.hivemq.com", 1883, 60)
+mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, "publisherID-lksadhouivhlefhiuvuk7388490fshsdlfviop", clean_session=False)
+mqttc.connect(broker, 1883, 60)
 
 while True:
     
@@ -14,5 +17,5 @@ while True:
         "zeit": int(time.time()),
         "geschwindigkeit": random.randint(0, 50),
     }
-    mqttc.publish("ping", json.dumps(jsonPayload), qos=1)
+    mqttc.publish("DataMgmt", json.dumps(jsonPayload), qos=1)
     time.sleep(5)

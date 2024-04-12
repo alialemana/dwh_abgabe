@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: publisher
+  labels:
+    app: publisher
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: publisher
+  template:
+    metadata:
+      labels:
+        app: publisher
+    spec:
+      containers:
+      - name: publisher
+        image: docker.io/alialemana/publisher:v0.0.3
+        imagePullPolicy: Always
+        env:
+        - name: BROKER
+          value: mosquitto-broker-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subscriber
+  labels:
+    app: subscriber
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: subscriber
+  template:
+    metadata:
+      labels:
+        app: subscriber
+    spec:
+      containers:
+      - name: subscriber
+        image: docker.io/alialemana/subscriber:v0.0.3
+        imagePullPolicy: Always
+        env:
+        - name: BROKER
+          value: mosquitto-broker-service
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sub-secret
+              key: password
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sub-secret
+type: Opaque
+data:
+  password: U2VjdXJlUGFzc3dvcmQ=
