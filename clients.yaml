@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: publisher
-        image: docker.io/alialemana/publisher:v0.0.3
+        image: docker.io/alialemana/publisher:latest
         imagePullPolicy: Always
         env:
         - name: BROKER
@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
       - name: subscriber
-        image: docker.io/alialemana/subscriber:v0.0.3
+        image: docker.io/alialemana/subscriber:v1.0
         imagePullPolicy: Always
         env:
         - name: BROKER

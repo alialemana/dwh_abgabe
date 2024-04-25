@@ -4,5 +4,6 @@ RUN mkdir /app
 WORKDIR /app
 ADD . /app/
 RUN pip install -r requirements.txt
+ENV PYTHONUNBUFFERED=1 
 
-CMD ["python", "/app/publisher.py"]
+CMD ["python", "-u", "/app/publisher.py"]
