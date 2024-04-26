@@ -40,21 +40,23 @@ spec:
     spec:
       containers:
       - name: subscriber
-        image: docker.io/alialemana/subscriber:v1.0
+        image: docker.io/alialemana/subscriber:latest
         imagePullPolicy: Always
         env:
         - name: BROKER
           value: mosquitto-broker-service
-        - name: DB_PASSWORD
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: database
+        - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: sub-secret
+              name: postgres-secret
               key: password
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: sub-secret
-type: Opaque
-data:
-  password: U2VjdXJlUGFzc3dvcmQ=
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: username   

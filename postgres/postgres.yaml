@@ -18,9 +18,22 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
-          envFrom:
-            - configMapRef:
+          env:
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: database
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
                 name: postgres-secret
+                key: password
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: username    
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgresdata
@@ -45,13 +58,20 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres-secret
+  name: postgres-config
   labels:
     app: postgres
 data:
-  POSTGRES_DB: postgres-db
-  POSTGRES_USER: postgres-user
-  POSTGRES_PASSWORD: SecurePassword
+  database: postgres-db
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-secret
+type: Opaque
+data:
+  username: cG9zdGdyZXMtdXNlcg==
+  password: U2VjdXJlUGFzc3dvcmQ=
 ---
 apiVersion: v1
 kind: PersistentVolume

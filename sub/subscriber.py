@@ -3,13 +3,15 @@ import os
 import paho.mqtt.client as mqtt
 from datetime import datetime
 
-db_password = os.getenv("DB_PASSWORD")
+db_password = os.getenv("POSTGRES_PASSWORD")
 broker = os.getenv("BROKER")
+database = os.getenv("POSTGRES_DB")
+user = os.getenv("POSTGRES_USER")
 
 # Verbindung zur Datenbank herstellen
 conn = psycopg2.connect(
-database="postgres-db", 
-user="postgres-user",
+database=database, 
+user=user,
 host="postgres",
 port=5432,
 password=db_password)
