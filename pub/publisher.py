@@ -39,7 +39,7 @@ while True:
         "zeit": int(time.time()),
         "geschwindigkeit": random.randint(0, 50),
     }
-    results = mqttc.publish("DataMgmt", json.dumps(jsonPayload), qos=0)
+    results = mqttc.publish("DataMgmt", json.dumps(jsonPayload), qos=1)
     status = results[0]
     if status == 0:
         print(f"Sent `{jsonPayload}`to topic", msg_count, results[1])
