@@ -5,7 +5,7 @@ Der Aufbau des Dockerimages ist in der Ausarbeitung genauer beschrieben. Um es n
 
 ```
 docker build -t alialemana/publisher:latest
-docker push alialemana/publisher:latest'''
+docker push alialemana/publisher:latest
 ```
 
 ## Vorgehen zum Starten des Clusters
@@ -17,6 +17,7 @@ In abgabe/postgres/postgres.yaml muss unter postgres-secret der username und das
 echo -n '<username>' | base64
 echo -n '<password>' | base64
 ```
+Das Ergebnis dann unter username und password eintragen.
 
 ### Starten
 Nachdem das Secret vervollständigt wurde, kann mit `bash run.bash` der Cluster gestartet werden. Mit `bash destroy.bash` wird das Cluster wieder heruntergefahren. 
