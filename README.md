@@ -1,5 +1,7 @@
 # MQTT-Fallstudie in Kubernetes
 
+##
+Die relevanten Dateien sind mosquitto\_broker.yaml, clients.yaml und postgres/postgres.yaml. Zum Starten der Anwendung noch run.bash, zum Stoppen destroy.bash. Dazu mehr unter dem Punkt 'Starten'.
 ## Docker-Image 
 Der Aufbau des Dockerimages ist in der Ausarbeitung genauer beschrieben. Um es neu zu bilden und in das Repository auf Dockerhub hochzuladen, müssen folgende Befehle ausgeführt werden.
 
