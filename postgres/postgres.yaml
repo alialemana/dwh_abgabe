@@ -70,8 +70,8 @@ metadata:
   name: postgres-secret
 type: Opaque
 data:
-  username: cG9zdGdyZXMtdXNlcg==
-  password: U2VjdXJlUGFzc3dvcmQ=
+  username: <username>
+  password: <password>
 ---
 apiVersion: v1
 kind: PersistentVolume
